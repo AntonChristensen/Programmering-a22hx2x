@@ -7,9 +7,9 @@ void setup(){
 }
 
 void draw(){
-  blomster();
   textAlign(CENTER, CENTER);
   textSize(44);
+  blomster();
 }
 
 
