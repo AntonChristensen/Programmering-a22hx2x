@@ -14,7 +14,7 @@ class Blok {
   }
 
   void drawBlok() {
-    fill(102,178,255);
+    fill(102, 178, 255);
     rectMode(CENTER);
     rect(xPos, yPos, brede, hoejde);
   }
@@ -24,5 +24,43 @@ class Blok {
       xPos = mouseX;
       yPos = mouseY;
     }
+  }
+
+  int getId() {
+    return id;
+  }
+
+  int getXPos() {
+    return xPos;
+  }
+
+  int getYPos() {
+    return yPos;
+  }
+
+  int getBrede() {
+    return brede;
+  }
+
+  int getHoejde() {
+    return hoejde;
+  }
+}// her slutter class Blok
+
+
+
+class TegnForm extends Blok {
+  int xStart = 200;
+  int yStart = 200;
+  int firkantBrede = 100;
+  int firkantHoejde = 100;
+
+
+  TegnForm(int x, int y, int i) {
+    super(x, y, i);
+  }
+
+  void tegnFirkant() {
+    rect(xStart, yStart, firkantBrede, firkantHoejde);
   }
 }
