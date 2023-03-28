@@ -4,6 +4,7 @@ class Blok {
   int id;
   int brede = 200;
   int hoejde = 100;
+  color farve;
 
 
 
@@ -13,10 +14,10 @@ class Blok {
     id = i;
   }
 
-  void drawBlok() {
-    fill(102, 178, 255);
-    rectMode(CENTER);
-    rect(xPos, yPos, brede, hoejde);
+  void drawBlok() {       //Denne er til at fylde ud i nedarvning
+  }
+
+  void koerFunktion() {   //Denne er til at fylde ud i nedarvning
   }
 
   void moveBlok(int tagetId) {
@@ -45,22 +46,48 @@ class Blok {
   int getHoejde() {
     return hoejde;
   }
-}// her slutter class Blok
+}
+// her slutter class Blok
 
-
+//-----------------------------TegnForm Blok-----------------------------//
 
 class TegnForm extends Blok {
-  int xStart = 200;
-  int yStart = 200;
-  int firkantBrede = 100;
-  int firkantHoejde = 100;
+  String Form;
 
-
-  TegnForm(int x, int y, int i) {
+  TegnForm(int x, int y, int i, String F) {
     super(x, y, i);
+    farve = #7BE000;
+    Form = F;
   }
 
-  void tegnFirkant() {
-    rect(xStart, yStart, firkantBrede, firkantHoejde);
+
+  void drawBlok() {
+    fill(farve);
+    rectMode(CENTER);
+    rect(xPos, yPos, brede, hoejde);
+  }
+
+  void koerFunktion(int tegnX, int tegnY) {
+    
+  }
+}
+
+
+//-----------------------------FlytForm Blok-----------------------------//
+
+class FlytForm extends Blok {
+
+  FlytForm(int x, int y, int i) {
+    super(x, y, i);
+    farve = #E33CDB;
+  }
+
+  void drawBlok() {
+    fill(farve);
+    rectMode(CENTER);
+    rect(xPos, yPos, brede, hoejde);
+  }
+
+  void koerFunktion() {
   }
 }

@@ -9,6 +9,11 @@ class View {
   int visuBrede = 600;
   int visuHoejde = 600;
 
+  int blokListeX = visuX + visuBrede + 50;
+  int blokListeY = 100;
+  int blokListeBrede = progBrede;
+  int blokListeHoejde = progHoejde;
+
   int playX = progX;
   int playY = progY-70;
   int playBrede = 100;
@@ -25,6 +30,7 @@ class View {
   }
 
   void drawView() {
+    
     //Visuel område til at vise koden
     rectMode(CORNER);
     fill(255);
@@ -37,10 +43,24 @@ class View {
     noFill();
     rect(visuX,visuY,visuBrede,visuHoejde);
     
+    //Forklaring til det visuelle område
+    textAlign(CENTER, BOTTOM);
+    textSize(30);
+    fill(0);
+    text("(0,0)",visuX,visuY);
+    text("("+visuBrede+",0)", visuX + visuBrede, visuY);
+    textAlign(CENTER, TOP);
+    text("(0,"+visuHoejde+")", visuX, visuY + visuHoejde);
+    
     
     //programmeringsliste
     fill(240);
     rect(progX,progY,progBrede,progHoejde);
+    
+    
+    //Blokliste
+    fill(240);
+    rect(blokListeX,blokListeY,blokListeBrede,blokListeHoejde);
     
     
     //Playknappen

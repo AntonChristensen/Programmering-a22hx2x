@@ -8,9 +8,9 @@ ArrayList<Blok> Blokke = new ArrayList<Blok>();
 
 
 void setup() {
-  size(1200, 800);
-  Blokke.add(new Blok(1075, 200, 1));
-  Blokke.add(new Blok(1075, 350, 2));
+  size(1300, 800);
+  Blokke.add(new TegnForm(1125, 175, 1, "FIRKANT"));
+  Blokke.add(new FlytForm(1125, 300, 2));
 }
 
 void draw() {
