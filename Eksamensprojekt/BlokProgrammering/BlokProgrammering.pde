@@ -31,6 +31,8 @@ void draw() {
 
 
 void mousePressed() {
+  
+  //VÆR OPMÆRKSOM PÅ AT HVIS EN BLOK ER OVER "SKABEOMRÅDET" BLIVER DEN IKKE FYTTET MEN EN NY BLIVER SKABT. SKAL ÆNDRES!!!
   //laver ny blok og tilføjer til listen med blokke
   for (int i = 0; i < VisuBlokke.size(); i ++) {
     Blok Part = VisuBlokke.get(i);
