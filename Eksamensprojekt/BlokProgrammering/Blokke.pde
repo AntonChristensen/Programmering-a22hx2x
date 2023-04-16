@@ -2,16 +2,16 @@ class Blok {
   int xPos;
   int yPos;
   int id;
-  int brede = 200;
-  int hoejde = 100;
+  int blokBrede = 200;
+  int blokHoejde = 100;
   color farve;
 
 
 
   Blok(int x, int y, int i) {
-    xPos = x;
-    yPos = y;
-    id = i;
+    xPos = x;  //startplacering i programmet
+    yPos = y;  //startplacering i programmet
+    id = i;    //blokkens Id
   }
 
   void drawBlok() {       //Denne er til at fylde ud med visualiseringen af blokken i nedarvning
@@ -24,7 +24,6 @@ class Blok {
     if (mousePressed && tagetId == id) {
       xPos = mouseX;
       yPos = mouseY;
-      println(tagetId);
     }
   }
 
@@ -41,11 +40,11 @@ class Blok {
   }
 
   int getBrede() {
-    return brede;
+    return blokBrede;
   }
 
   int getHoejde() {
-    return hoejde;
+    return blokHoejde;
   }
 }
 // her slutter class Blok
@@ -53,9 +52,11 @@ class Blok {
 //-----------------------------TegnForm Blok-----------------------------//
 
 class TegnForm extends Blok {
-  String Form;
+  int tegnX;
+  int tegnY;
+  int brede;
 
-  TegnForm(int x, int y, int i) {
+  TegnForm(int x, int y, int i) { //skal tage to inputs
     super(x, y, i);
     farve = #7BE000;
   }
@@ -64,11 +65,19 @@ class TegnForm extends Blok {
   void drawBlok() {
     fill(farve);
     rectMode(CENTER);
-    rect(xPos, yPos, brede, hoejde);
+    rect(xPos, yPos, blokBrede, blokHoejde);
   }
 
-  void koerFunktion(int tegnX, int tegnY) {
-    
+  void aendreVærdier() {  //skal tage værdier fra brugeren/variabler og gemme dem så de kan bruges
+    tegnX = 50;
+    tegnY = 50;
+    brede = 50;
+  }
+
+  void koerFunktion() {
+    aendreVærdier();  //opdaterer værdierne
+    fill(0);
+    square(tegnX + View.getVisuX(), tegnY + View.getVisuY(), brede);
   }
 }
 
@@ -85,7 +94,7 @@ class FlytForm extends Blok {
   void drawBlok() {
     fill(farve);
     rectMode(CENTER);
-    rect(xPos, yPos, brede, hoejde);
+    rect(xPos, yPos, blokBrede, blokHoejde);
   }
 
   void koerFunktion() {
