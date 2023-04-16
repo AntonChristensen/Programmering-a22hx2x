@@ -14,16 +14,17 @@ class Blok {
     id = i;
   }
 
-  void drawBlok() {       //Denne er til at fylde ud i nedarvning
+  void drawBlok() {       //Denne er til at fylde ud med visualiseringen af blokken i nedarvning
   }
 
-  void koerFunktion() {   //Denne er til at fylde ud i nedarvning
+  void koerFunktion() {   //Denne er til at fylde ud med blokkens funktion i nedarvning
   }
 
   void moveBlok(int tagetId) {
     if (mousePressed && tagetId == id) {
       xPos = mouseX;
       yPos = mouseY;
+      println(tagetId);
     }
   }
 
@@ -54,10 +55,9 @@ class Blok {
 class TegnForm extends Blok {
   String Form;
 
-  TegnForm(int x, int y, int i, String F) {
+  TegnForm(int x, int y, int i) {
     super(x, y, i);
     farve = #7BE000;
-    Form = F;
   }
 
 

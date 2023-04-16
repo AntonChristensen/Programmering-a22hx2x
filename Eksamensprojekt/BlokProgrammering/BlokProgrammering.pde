@@ -1,16 +1,17 @@
-int grebetId = 0;
+int grebetId = 0;   //For at Flere blokke ikke flyttes på samme tid
+int givId = 1;
 
 View View = new View();
 
-ArrayList<Blok> MaserBlokke = new ArrayList<Blok>();
+ArrayList<Blok> MasterBlokke = new ArrayList<Blok>();
 ArrayList<Blok> Blokke = new ArrayList<Blok>();
 
 
 
 void setup() {
   size(1300, 800);
-  Blokke.add(new TegnForm(1125, 175, 1, "FIRKANT"));
-  Blokke.add(new FlytForm(1125, 300, 2));
+  Blokke.add(new TegnForm(1125, 175, givId++));
+  Blokke.add(new FlytForm(1125, 300, givId++));
 }
 
 void draw() {

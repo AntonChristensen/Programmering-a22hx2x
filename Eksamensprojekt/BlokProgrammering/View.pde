@@ -24,6 +24,10 @@ class View {
   int stepY = playY;
   int stepX = progX + progBrede - stepBrede;
 
+  int delX = blokListeX;
+  int delY = playY;
+  int delBrede = blokListeBrede;
+  int delHoejde = playHoejde;
 
   //Cunstuctor
   View() {
@@ -80,6 +84,14 @@ class View {
     textSize(stepHoejde);
     text("Step",stepX+stepBrede/2,stepY+stepHoejde-12);
     
+    
+    //Delete område
+    fill(255, 0, 0, 190);
+    rect(delX,delY,delBrede,delHoejde);
+    textAlign(CENTER);
+    fill(255);
+    textSize(delHoejde);
+    text("Delete blok",delX+delBrede/2,delY+delHoejde-7);
     
   }
 }
