@@ -2,17 +2,26 @@
 
 int grebetId = 0;   //For at Flere blokke ikke flyttes på samme tid
 int givId = 1;
+int xPlaceringProgram;
 
-View View = new View();
+View View;      //deklarerer objektet View til classen View
 
-ArrayList<Blok> VisuBlokke = new ArrayList<Blok>();  //liste med de blokke som kan vælges i menuen så jeg ikke skal programmere det visueller for blokkende to gange
-ArrayList<Blok> Blokke = new ArrayList<Blok>();      //liste med de blokke som ikke er i et program
-//ArrayList<Blok> ProgamBlokke = new ArrayList<Blok>();//liste med de blokke som programmet kører        Det er ikke nødvendigt da jeg bare tilføjer deres id til en liste
+ArrayList<Blok> VisuBlokke;  //liste med de blokke som kan vælges i menuen så jeg ikke skal programmere det visueller for blokkende to gange
+ArrayList<Blok> Blokke;      //liste med de blokke som ikke er i et program
+IntList Program;
 
 
 
 void setup() {
   size(1300, 800);
+  
+  View = new View();
+  VisuBlokke = new ArrayList<Blok>();
+  Blokke = new ArrayList<Blok>(); 
+  Program = new IntList();
+  
+  xPlaceringProgram = View.getProgX() + 20;  //bruges til at have en rækkefølge i programmeringsruden
+  
   VisuBlokke.add(new TegnForm(1125, 175, givId++));
   VisuBlokke.add(new FlytForm(1125, 300, givId++));
 }
@@ -20,7 +29,7 @@ void setup() {
 void draw() {
   background(255);
   View.drawView();
-  for (int i = 0; i < Blokke.size(); i ++) {
+  for (int i = 0; i < Blokke.size(); i ++) {    //Det skal flyttes så det bare er en funktion
     Blok Part = Blokke.get(i);
     Part.moveBlok(grebetId);
     Part.drawBlok();
@@ -31,33 +40,38 @@ void draw() {
 
 
 void mousePressed() {
-  
-  //VÆR OPMÆRKSOM PÅ AT HVIS EN BLOK ER OVER "SKABEOMRÅDET" BLIVER DEN IKKE FYTTET MEN EN NY BLIVER SKABT. SKAL ÆNDRES!!!
+
+  //Tager id for det element som musen er over for at undgå at tage flere ting af gangen
+  for (int i = Blokke.size(); i > 0; i--) {
+    Blok Part = Blokke.get(i-1);
+    if (mouseX > Part.getXPos() - Part.getBrede()/2 && mouseX < Part.getXPos() + Part.getBrede()/2 && mouseY > Part.getYPos() - Part.getHoejde()/2 && mouseY < Part.getYPos() + Part.getHoejde()/2) {
+      grebetId = Part.getId();
+      return;
+    }
+  }
+
+
   //laver ny blok og tilføjer til listen med blokke
   for (int i = 0; i < VisuBlokke.size(); i ++) {
     Blok Part = VisuBlokke.get(i);
     if (mouseX > Part.getXPos() - Part.getBrede()/2 && mouseX < Part.getXPos() + Part.getBrede()/2 && mouseY > Part.getYPos() - Part.getHoejde()/2 && mouseY < Part.getYPos() + Part.getHoejde()/2) {
       if (i == 0) {
-        Blokke.add(new TegnForm(mouseX, mouseY, givId++));
+        Blokke.add(new TegnForm(mouseX, mouseY, givId));
       } else if (i == 1) {
-        Blokke.add(new FlytForm(mouseX, mouseY, givId++));
+        Blokke.add(new FlytForm(mouseX, mouseY, givId));
       }
       grebetId = givId;
+      givId++;
     }
   }
-
-
-  // Tager id for det element som musen er over for at undgå at tage flere ting af gangen
-  for (int i = 0; i < Blokke.size(); i ++) {
-    Blok Part = Blokke.get(i);
-    if (mouseX > Part.getXPos() - Part.getBrede()/2 && mouseX < Part.getXPos() + Part.getBrede()/2 && mouseY > Part.getYPos() - Part.getHoejde()/2 && mouseY < Part.getYPos() + Part.getHoejde()/2) {
-      grebetId = Part.getId();
-    }
-  }
-
 }
 
 
 void mouseReleased() {
-  grebetId = 0;
+  if (mouseX > View.getProgX() && mouseX < View.getProgX() + View.getProgBrede() && mouseY > View.getProgY() && mouseY < View.getProgY() + View.getProgHoejde()){
+    Program.append(grebetId);
+        Blokke.getXPos();
+  }
+  
+  grebetId = 0; //for at man ikke samler en blok op når der ikke trykkes på noget
 }

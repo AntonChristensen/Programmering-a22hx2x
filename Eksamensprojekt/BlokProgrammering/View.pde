@@ -122,4 +122,21 @@ class View {
   int getVisuY() {
     return visuY;
   }
+
+  
+  int getProgX() {
+    return progX;
+  }
+  
+  int getProgY() {
+    return progY;
+  }
+  
+  int getProgBrede() {
+    return progBrede;
+  }
+  
+  int getProgHoejde() {
+    return progHoejde;
+  }
 }

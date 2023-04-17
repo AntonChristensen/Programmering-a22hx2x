@@ -1,6 +1,9 @@
 class Blok {
   int xPos;
   int yPos;
+  int sidstXPos;
+  int sidstYPos;
+  
   int id;
   int blokBrede = 200;
   int blokHoejde = 100;
@@ -46,6 +49,15 @@ class Blok {
   int getHoejde() {
     return blokHoejde;
   }
+  
+  void setXPos(int nyXPos){
+    xPos = nyXPos;
+  }
+  
+  void setYPos(int nyYPos){
+    yPos = nyYPos;
+  }
+  
 }
 // her slutter class Blok
 
