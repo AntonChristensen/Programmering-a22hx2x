@@ -123,20 +123,28 @@ class View {
     return visuY;
   }
 
-  
+
   int getProgX() {
     return progX;
   }
-  
+
   int getProgY() {
     return progY;
   }
-  
+
   int getProgBrede() {
     return progBrede;
   }
-  
+
   int getProgHoejde() {
     return progHoejde;
+  }
+
+  void opdaterBlokke() { //Står for at flytte og tegne blokke
+    for (int i = 0; i < Blokke.size(); i ++) {
+      Blok Part = Blokke.get(i);
+      Part.moveBlok(grebetId);
+      Part.drawBlok();
+    }
   }
 }
