@@ -59,7 +59,7 @@ class Blok {
   }
   
 }
-// her slutter class Blok
+
 
 //-----------------------------TegnForm Blok-----------------------------//
 
@@ -70,7 +70,7 @@ class TegnForm extends Blok {
 
   TegnForm(int x, int y, int i) { //skal tage to inputs
     super(x, y, i);
-    farve = #7BE000;
+    farve = #7BE000; //grøn
   }
 
 
@@ -100,7 +100,7 @@ class FlytForm extends Blok {
 
   FlytForm(int x, int y, int i) {
     super(x, y, i);
-    farve = #E33CDB;
+    farve = #E33CDB; //lilla
   }
 
   void drawBlok() {

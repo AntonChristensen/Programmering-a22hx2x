@@ -34,6 +34,9 @@ class View {
   int clearBrede = blokListeBrede/2 - 5;
   int clearHoejde = playHoejde;
 
+  int yPlaceringProgram = progY + 20;  //bruges til at have en rækkefølge i programmeringsruden
+
+
   //Cunstuctor
   View() {
   }
@@ -123,6 +126,13 @@ class View {
     return visuY;
   }
 
+  int getVisuBrede() {
+    return visuBrede;
+  }
+
+  int getVisuHoejde() {
+    return visuHoejde;
+  }
 
   int getProgX() {
     return progX;
@@ -139,6 +149,39 @@ class View {
   int getProgHoejde() {
     return progHoejde;
   }
+
+  int getPlayX() {
+    return playX;
+  }
+
+  int getPlayY() {
+    return playY;
+  }
+
+  int getPlayBrede() {
+    return playBrede;
+  }
+
+  int getPlayHoejde() {
+    return playHoejde;
+  }
+
+  int getClearX() {
+    return clearX;
+  }
+
+  int getClearY() {
+    return clearY;
+  }
+
+  int getClearBrede() {
+    return clearBrede;
+  }
+
+  int getClearHoejde() {
+    return clearHoejde;
+  }
+
 
   void opdaterBlokke() { //Står for at flytte og tegne blokke
     for (int i = 0; i < Blokke.size(); i ++) {
