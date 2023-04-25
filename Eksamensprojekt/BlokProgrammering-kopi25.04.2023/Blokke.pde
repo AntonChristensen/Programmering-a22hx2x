@@ -6,7 +6,7 @@ class Blok {
   
   int id;
   int blokBrede = 200;
-  int blokHoejde = 70;
+  int blokHoejde = 100;
   color farve;
 
 
@@ -61,14 +61,14 @@ class Blok {
 }
 
 
-//-----------------------------TegnFirkant Blok-----------------------------//
+//-----------------------------TegnForm Blok-----------------------------//
 
-class TegnKvadrat extends Blok {
+class TegnForm extends Blok {
   int tegnX;
   int tegnY;
   int brede;
 
-  TegnKvadrat(int x, int y, int i) { //skal tage to inputs
+  TegnForm(int x, int y, int i) { //skal tage to inputs
     super(x, y, i);
     farve = #7BE000; //grøn
   }
@@ -78,10 +78,6 @@ class TegnKvadrat extends Blok {
     fill(farve);
     rectMode(CENTER);
     rect(xPos, yPos, blokBrede, blokHoejde);
-    //tegnet for blokken
-    fill(0);
-    rectMode(CORNER);
-    rect(xPos - blokBrede/2 +10, yPos - blokHoejde/2 + 10, 30, 20);
   }
 
   void aendreVærdier() {  //skal tage værdier fra brugeren/variabler og gemme dem så de kan bruges
@@ -94,42 +90,6 @@ class TegnKvadrat extends Blok {
     aendreVærdier();  //opdaterer værdierne
     fill(0);
     square(tegnX + View.getVisuX(), tegnY + View.getVisuY(), brede);
-  }
-}
-
-
-//-----------------------------TegnCirkel Blok-----------------------------//
-
-class TegnCirkel extends Blok {
-  int tegnX;
-  int tegnY;
-  int brede;
-
-  TegnCirkel(int x, int y, int i) { //skal tage to inputs
-    super(x, y, i);
-    farve = #51E0A6; //cyan
-  }
-
-
-  void drawBlok() {
-    fill(farve);
-    rectMode(CENTER);
-    rect(xPos, yPos, blokBrede, blokHoejde);
-    //tegnet for blokken
-    fill(0);
-    circle(xPos - blokBrede/2 + 25,yPos - blokHoejde/2 + 20, 30);
-  }
-
-  void aendreVærdier() {  //skal tage værdier fra brugeren/variabler og gemme dem så de kan bruges
-    tegnX = 50;
-    tegnY = 50;
-    brede = 50;
-  }
-
-  void koerFunktion() {
-    aendreVærdier();  //opdaterer værdierne
-    fill(0);
-    circle(tegnX + View.getVisuX(), tegnY + View.getVisuY(), brede);
   }
 }
 

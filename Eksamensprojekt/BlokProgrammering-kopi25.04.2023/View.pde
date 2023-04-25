@@ -1,18 +1,18 @@
 class View {
-  int blokListeX = 30;
-  int blokListeY = 100;
-  int blokListeBrede = 230;
-  int blokListeHoejde = 600;
-
-  int progX = blokListeX + blokListeBrede + 30;
+  int progX = 50;
   int progY = 100;
-  int progBrede = blokListeBrede;
-  int progHoejde = blokListeHoejde;
+  int progBrede = 250;
+  int progHoejde = 600;
 
   int visuX = progX + progBrede + 50;
   int visuY = 100;
-  int visuBrede = 700;
+  int visuBrede = 600;
   int visuHoejde = 600;
+
+  int blokListeX = visuX + visuBrede + 50;
+  int blokListeY = 100;
+  int blokListeBrede = progBrede;
+  int blokListeHoejde = progHoejde;
 
   int playX = progX;
   int playY = progY-70;
@@ -24,12 +24,17 @@ class View {
   int stepY = playY;
   int stepX = progX + progBrede - stepBrede;
 
-  int clearX = blokListeX;
+  int delX = blokListeX;
+  int delY = playY;
+  int delBrede = blokListeBrede/2 - 5;
+  int delHoejde = playHoejde;
+
+  int clearX = blokListeX + delBrede + 10;
   int clearY = playY;
   int clearBrede = blokListeBrede/2 - 5;
   int clearHoejde = playHoejde;
 
-  int yPlaceringProgram = progY + 15;  //bruges til at have en rækkefølge i programmeringsruden
+  int yPlaceringProgram = progY + 20;  //bruges til at have en rækkefølge i programmeringsruden
 
 
   //Cunstuctor
@@ -88,6 +93,15 @@ class View {
     text("Step", stepX+stepBrede/2, stepY+stepHoejde-12);
 
 
+    //Delete område
+    fill(255, 0, 0, 190);
+    rect(delX, delY, delBrede, delHoejde);
+    textAlign(CENTER);
+    fill(255);
+    textSize(delHoejde * 0.85);
+    text("Delete", delX+delBrede/2, delY+delHoejde-7);
+
+
     //clear
     fill(255, 0, 0, 190);
     rect(clearX, clearY, clearBrede, clearHoejde);
@@ -101,18 +115,6 @@ class View {
     for (int i = 0; i < VisuBlokke.size(); i ++) {
       Blok Part = VisuBlokke.get(i);
       Part.drawBlok();
-    }
-
-
-    //tegn blokke på programmeringslisten
-    for (int i = 0; i < Program.size(); i++) {
-      for (int j = 0; j < Blokke.size(); j ++) {
-        Blok Part = Blokke.get(j);
-        if (Part.getId() == Program.get(i)) {
-          Part.setXPos(View.getProgX() + View.getProgBrede()/2);
-          Part.setYPos(View.getProgY() + Part.getHoejde()/2 + 15 + (Part.getHoejde()  + 15) * i);
-        }
-      }
     }
   }
 
@@ -132,8 +134,6 @@ class View {
     return visuHoejde;
   }
 
-//-------------------------------------------//
-
   int getProgX() {
     return progX;
   }
@@ -149,8 +149,6 @@ class View {
   int getProgHoejde() {
     return progHoejde;
   }
-
-//-------------------------------------------//
 
   int getPlayX() {
     return playX;
@@ -168,8 +166,6 @@ class View {
     return playHoejde;
   }
 
-//-------------------------------------------//
-
   int getClearX() {
     return clearX;
   }
@@ -184,24 +180,6 @@ class View {
 
   int getClearHoejde() {
     return clearHoejde;
-  }
-  
-//-------------------------------------------//
-
-  int getBlokListeX() {
-    return blokListeX;
-  }
-
-  int getBlokListeY() {
-    return blokListeY;
-  }
-
-  int getBlokListeBrede() {
-    return blokListeBrede;
-  }
-
-  int getBlokListeHoejde() {
-    return blokListeHoejde;
   }
 
 

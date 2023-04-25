@@ -12,7 +12,7 @@ IntList Program;
 
 
 void setup() {
-  size(1320, 800);
+  size(1300, 800);
 
   View = new View();
   VisuBlokke = new ArrayList<Blok>();
@@ -22,9 +22,8 @@ void setup() {
 
 
 
-  VisuBlokke.add(new TegnKvadrat(145, 150, givId++));
-  VisuBlokke.add(new TegnCirkel(145, 235, givId++));
-  VisuBlokke.add(new FlytForm(145, 320, givId++));
+  VisuBlokke.add(new TegnForm(1125, 175, givId++));
+  VisuBlokke.add(new FlytForm(1125, 300, givId++));
 }
 
 void draw() {
@@ -71,10 +70,8 @@ void mousePressed() {
     Blok Part = VisuBlokke.get(i);
     if (mouseX > Part.getXPos() - Part.getBrede()/2 && mouseX < Part.getXPos() + Part.getBrede()/2 && mouseY > Part.getYPos() - Part.getHoejde()/2 && mouseY < Part.getYPos() + Part.getHoejde()/2) {
       if (i == 0) {
-        Blokke.add(new TegnKvadrat(mouseX, mouseY, givId));
+        Blokke.add(new TegnForm(mouseX, mouseY, givId));
       } else if (i == 1) {
-        Blokke.add(new TegnCirkel(mouseX, mouseY, givId));
-      } else if (i == 2) {
         Blokke.add(new FlytForm(mouseX, mouseY, givId));
       }
       grebetId = givId;
@@ -86,8 +83,30 @@ void mousePressed() {
 
 void mouseReleased() {
   // Sætter blokke på Programmeringslisten
-  if (mouseX > View.getProgX() && mouseX < View.getProgX() + View.getProgBrede() && mouseY > View.getProgY() && mouseY < View.getProgY() + View.getProgHoejde()) {
-    if (!Program.hasValue(grebetId) && grebetId != 0) {
+  if (mouseX > View.getProgX() && mouseX < View.getProgX() + View.getProgBrede() && mouseY > View.getProgY()) {
+
+    if (Program.size() == 0) {
+      for (int i = 0; i < Blokke.size(); i ++) {
+        Blok Part = Blokke.get(i);
+        if (Part.getId() == grebetId) {
+          Part.setYPos(View.getProgY() + Part.getHoejde()/2 + 10);
+          Part.setXPos(View.getProgX() + View.getProgBrede()/2);
+        }
+      }
+    } else if (Program.size() > 0) {
+      for (int i = 0; i < Blokke.size(); i ++) {
+        Blok Part = Blokke.get(i);
+        if (Part.getId() == grebetId) {
+          Part.setYPos(View.getProgY() + Part.getHoejde()/2 + 10);
+          Part.setXPos(View.getProgX() + View.getProgBrede()/2);
+        }
+      }
+    }
+
+
+
+
+    if (!Program.hasValue(grebetId)) {
       Program.append(grebetId);
     }
   }
@@ -97,15 +116,6 @@ void mouseReleased() {
     Program.remove(Program.index(grebetId));
   }
 
-  //fjerner en blok fra Bloklisten når den flyttes over i VisuListen
-  if ((mouseX > View.getBlokListeX() && mouseX < View.getBlokListeX() + View.getBlokListeBrede() && mouseY > View.getBlokListeY() && mouseY < View.getBlokListeY() + View.getBlokListeHoejde())) {
-    for (int i = 0; i < Blokke.size(); i ++) {
-      Blok Part = Blokke.get(i);
-      if (Part.getId() == grebetId) {
-        Blokke.remove(Blokke.indexOf(Part));
-      }
-    }
-  }
 
   grebetId = 0; //for at man ikke samler en blok op når der ikke trykkes på noget
 }
