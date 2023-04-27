@@ -2,8 +2,10 @@ class Blok {
 
   int xPos;
   int yPos;
-  int sidstXPos;
-  int sidstYPos;
+  int xDifference;
+  int yDifference;
+  boolean moveKoert;
+  
 
   int id;
   int blokBrede = 200;
@@ -31,9 +33,19 @@ class Blok {
   }
 
   void moveBlok(int tagetId) {
+    if (!moveKoert){
+      xDifference = xPos - mouseX;
+      yDifference = yPos - mouseY;
+      moveKoert = true;
+    }
+    
     if (mousePressed && tagetId == id) {
-      xPos = mouseX;
-      yPos = mouseY;
+      xPos = xDifference + mouseX;
+      yPos = yDifference + mouseY;
+    }
+    
+    if (!mousePressed){
+      moveKoert = false;
     }
   }
 
@@ -68,6 +80,23 @@ class Blok {
   void setYPos(int nyYPos) {
     yPos = nyYPos;
   }
+  
+  int getTextX(){
+    return 0;       //De er her for at der kan loopes igennem alle blokke
+  }
+ 
+ int getTextY(){
+    return 0;
+  }
+  
+  int getTextXSlut(){
+        return 0;
+  }
+  
+  int getTextYSlut(){
+    return 0;
+  }
+  
 }
 
 
@@ -134,6 +163,29 @@ class TegnKvadrat extends Blok {
     cp5.remove(str(i)+"H");
     cp5.remove(str(i)+"B");
   }
+  
+  
+  int getTextX(){
+    return tegnX;
+  }
+  
+  int getTextY(){
+    return tegnY;
+  }
+  
+  int getTextXSlut(){
+    float[] xSlut = new float[2];
+    xSlut = cp5.getController(str(id)+"H").getPosition();
+    return(int(xSlut[0]) + cp5.getController(str(id)+"H").getWidth());
+  }
+  
+  int getTextYSlut(){
+    float[] xSlut = new float[2];
+    xSlut = cp5.getController(str(id)+"H").getPosition();
+    return(int(xSlut[1]) + cp5.getController(str(id)+"H").getHeight());
+  }
+  
+  
 }
 
 

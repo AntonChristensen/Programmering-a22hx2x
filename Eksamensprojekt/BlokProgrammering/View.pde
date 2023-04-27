@@ -24,10 +24,15 @@ class View {
   int stepY = playY;
   int stepX = progX + progBrede - stepBrede;
 
-  int clearX = blokListeX;
-  int clearY = playY;
-  int clearBrede = blokListeBrede/2 - 5;
-  int clearHoejde = playHoejde;
+  int clearAllX = blokListeX;
+  int clearAllY = playY;
+  int clearAllBrede = blokListeBrede/2 - 5;
+  int clearAllHoejde = playHoejde;
+  
+  int clearCanvasBrede = blokListeBrede/2 - 5;
+  int clearCanvasHoejde = playHoejde;
+  int clearCanvasX = blokListeX + blokListeBrede - clearCanvasBrede;
+  int clearCanvasY = playY;
 
   int yPlaceringProgram = progY + 15;  //bruges til at have en rækkefølge i programmeringsruden
 
@@ -88,16 +93,29 @@ class View {
     text("Step", stepX+stepBrede/2, stepY+stepHoejde-12);
 
 
-    //clear
+    //clear all
     fill(255, 0, 0, 190);
-    rect(clearX, clearY, clearBrede, clearHoejde);
-    textAlign(CENTER);
+    rect(clearAllX, clearAllY, clearAllBrede, clearAllHoejde);
+    textAlign(CORNER);
     fill(255);
-    textSize(clearHoejde * 0.85);
-    text("Clear", clearX+clearBrede/2, clearY+clearHoejde-7);
+    textSize(clearAllHoejde * 0.7);
+    text("Clear", clearAllX +5, clearAllY + clearAllHoejde/2 +5);
+    textSize(clearAllHoejde * 0.6);
+    text("all", clearAllX + clearAllBrede/2 + 18, clearAllY + clearAllHoejde-2);
+    
+    
+    //clear canvas
+    fill(255, 0, 0, 190);
+    rect(clearCanvasX, clearCanvasY, clearCanvasBrede, clearCanvasHoejde);
+    textAlign(CORNER);
+    fill(255);
+    textSize(clearCanvasHoejde * 0.7);
+    text("Clear", clearCanvasX +5, clearCanvasY + clearCanvasHoejde/2 +5);
+    textSize(clearCanvasHoejde * 0.6);
+    text("canvas", clearCanvasX + 20, clearCanvasY + clearCanvasHoejde-2);
 
 
-    //tegn de blokke man kan trække
+    //tegner alle blokke i Visumenu
     for (int i = 0; i < VisuBlokke.size(); i ++) {
       Blok Part = VisuBlokke.get(i);
       Part.drawBlok();
@@ -198,20 +216,38 @@ class View {
 
   //-------------------------------------------//
 
-  int getClearX() {
-    return clearX;
+  int getClearAllX() {
+    return clearAllX;
   }
 
-  int getClearY() {
-    return clearY;
+  int getClearAllY() {
+    return clearAllY;
   }
 
-  int getClearBrede() {
-    return clearBrede;
+  int getClearAllBrede() {
+    return clearAllBrede;
   }
 
-  int getClearHoejde() {
-    return clearHoejde;
+  int getClearAllHoejde() {
+    return clearAllHoejde;
+  }
+
+  //-------------------------------------------//
+
+  int getClearCanvasX() {
+    return clearCanvasX;
+  }
+
+  int getClearCanvasY() {
+    return clearCanvasY;
+  }
+
+  int getClearCanvasBrede() {
+    return clearCanvasBrede;
+  }
+
+  int getClearCanvasHoejde() {
+    return clearCanvasHoejde;
   }
 
   //-------------------------------------------//
