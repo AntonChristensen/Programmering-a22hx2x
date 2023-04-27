@@ -170,6 +170,24 @@ class View {
 
 //-------------------------------------------//
 
+  int getStepX() {
+    return stepX;
+  }
+
+  int getStepY() {
+    return stepY;
+  }
+
+  int getStepBrede() {
+    return stepBrede;
+  }
+
+  int getStepHoejde() {
+    return stepHoejde;
+  }
+  
+//-------------------------------------------//
+
   int getClearX() {
     return clearX;
   }

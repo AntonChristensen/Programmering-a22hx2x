@@ -2,6 +2,7 @@
 
 int grebetId = 0;   //For at Flere blokke ikke flyttes på samme tid
 int givId = 1;
+int step = 0;
 
 View View;      //deklarerer objektet med navn View til classen View
 
@@ -18,7 +19,6 @@ void setup() {
   VisuBlokke = new ArrayList<Blok>();
   Blokke = new ArrayList<Blok>();
   Program = new IntList();
-  //Program = new ArrayList<Blok>();
 
 
 
@@ -29,7 +29,7 @@ void setup() {
 
 void draw() {
   //background(255);
-
+  //kørProgram();// ikke endelig løsning
   View.drawView();
   View.opdaterBlokke();
 }
@@ -51,7 +51,18 @@ void kørProgram() {
   }
 }
 
-void stepProgram() {
+void stepProgram(int steppet) {
+  fill(255);
+  rectMode(CORNER);
+  rect(View.getVisuX(), View.getVisuY(), View.getVisuBrede(), View.getVisuHoejde());   //nulstiller det visuelle område
+  for  (int i = 0; i <= steppet; i++) {
+    for (int j = 0; j < Blokke.size(); j ++) {
+      Blok Part = Blokke.get(j);
+      if (Part.getId() == Program.get(i)) {
+        Part.koerFunktion();
+      }
+    }
+  }
 }
 
 
@@ -116,6 +127,17 @@ void mouseClicked() {
   // Play knap
   if (mouseX > View.getPlayX() && mouseX < View.getPlayX() + View.getPlayBrede() && mouseY > View.getPlayY() && mouseY < View.getPlayY() + View.getPlayHoejde()) {
     kørProgram();
+    step = 0;
+  }
+  
+  // Step knap
+  if (mouseX > View.getStepX() && mouseX < View.getStepX() + View.getStepBrede() && mouseY > View.getStepY() && mouseY < View.getStepY() + View.getStepHoejde()) {
+    stepProgram(step);
+    if (step + 1 < Program.size()){
+      step++;
+    } else if(step + 1 == Program.size()){
+      step = 0;
+    }
   }
 
   // Clear knap
@@ -125,5 +147,6 @@ void mouseClicked() {
     fill(255);
     rectMode(CORNER);
     rect(View.getVisuX(), View.getVisuY(), View.getVisuBrede(), View.getVisuHoejde());
+    step = 0;
   }
 }
