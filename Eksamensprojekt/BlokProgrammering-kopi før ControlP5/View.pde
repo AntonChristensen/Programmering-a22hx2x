@@ -116,16 +116,6 @@ class View {
     }
   }
 
-
-    void opdaterBlokke() { //Står for at flytte og tegne blokke
-      for (int i = 0; i < Blokke.size(); i ++) {
-        Blok Part = Blokke.get(i);
-        Part.moveBlok(grebetId);
-        Part.drawBlok();
-      }
-    }
-    
-
   int getVisuX() {
     return visuX;
   }
@@ -142,7 +132,7 @@ class View {
     return visuHoejde;
   }
 
-  //-------------------------------------------//
+//-------------------------------------------//
 
   int getProgX() {
     return progX;
@@ -160,7 +150,7 @@ class View {
     return progHoejde;
   }
 
-  //-------------------------------------------//
+//-------------------------------------------//
 
   int getPlayX() {
     return playX;
@@ -178,7 +168,7 @@ class View {
     return playHoejde;
   }
 
-  //-------------------------------------------//
+//-------------------------------------------//
 
   int getStepX() {
     return stepX;
@@ -195,8 +185,8 @@ class View {
   int getStepHoejde() {
     return stepHoejde;
   }
-
-  //-------------------------------------------//
+  
+//-------------------------------------------//
 
   int getClearX() {
     return clearX;
@@ -213,8 +203,8 @@ class View {
   int getClearHoejde() {
     return clearHoejde;
   }
-
-  //-------------------------------------------//
+  
+//-------------------------------------------//
 
   int getBlokListeX() {
     return blokListeX;
@@ -230,5 +220,14 @@ class View {
 
   int getBlokListeHoejde() {
     return blokListeHoejde;
+  }
+
+
+  void opdaterBlokke() { //Står for at flytte og tegne blokke
+    for (int i = 0; i < Blokke.size(); i ++) {
+      Blok Part = Blokke.get(i);
+      Part.moveBlok(grebetId);
+      Part.drawBlok();
+    }
   }
 }

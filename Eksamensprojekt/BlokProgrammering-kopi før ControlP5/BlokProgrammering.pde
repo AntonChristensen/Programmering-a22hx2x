@@ -1,8 +1,5 @@
 //Controler
 
-import controlP5.*; // importerer biblioteket controlP5
-ControlP5 cp5;
-
 int grebetId = 0;   //For at Flere blokke ikke flyttes på samme tid
 int givId = 1;
 int step = 0;
@@ -23,9 +20,9 @@ void setup() {
   Blokke = new ArrayList<Blok>();
   Program = new IntList();
 
-  cp5 = new ControlP5(this); //Her laver jeg en
 
-  VisuBlokke.add(new TegnKvadrat(145, 150, givId++));  //gør så der ikke er teksfelter
+
+  VisuBlokke.add(new TegnKvadrat(145, 150, givId++));
   VisuBlokke.add(new TegnCirkel(145, 235, givId++));
   VisuBlokke.add(new FlytForm(145, 320, givId++));
 }
@@ -116,7 +113,6 @@ void mouseReleased() {
     for (int i = 0; i < Blokke.size(); i ++) {
       Blok Part = Blokke.get(i);
       if (Part.getId() == grebetId) {
-        Part.sletTextfelt(Part.getId());
         Blokke.remove(Blokke.indexOf(Part));
       }
     }
@@ -133,13 +129,13 @@ void mouseClicked() {
     kørProgram();
     step = 0;
   }
-
+  
   // Step knap
   if (mouseX > View.getStepX() && mouseX < View.getStepX() + View.getStepBrede() && mouseY > View.getStepY() && mouseY < View.getStepY() + View.getStepHoejde()) {
     stepProgram(step);
-    if (step + 1 < Program.size()) {
+    if (step + 1 < Program.size()){
       step++;
-    } else if (step + 1 == Program.size()) {
+    } else if(step + 1 == Program.size()){
       step = 0;
     }
   }
@@ -147,17 +143,10 @@ void mouseClicked() {
   // Clear knap
   if (mouseX > View.getClearX() && mouseX < View.getClearX() + View.getClearBrede() && mouseY > View.getClearY() && mouseY < View.getClearY() + View.getClearHoejde()) {
     Program.clear();
-    
-    for (int i = 0; i < Blokke.size(); i ++) { // løber alle blokke igennem og sletter textfelterne
-      Blok Part = Blokke.get(i);
-      Part.sletTextfelt(Part.getId());
-    }
-    Blokke.clear(); // sletter alle blokkene så de ikke tegnes igen
-    
+    Blokke.clear();
     fill(255);
     rectMode(CORNER);
     rect(View.getVisuX(), View.getVisuY(), View.getVisuBrede(), View.getVisuHoejde());
-
-    step = 0;  //nulstiller stepknappen
+    step = 0;
   }
 }
