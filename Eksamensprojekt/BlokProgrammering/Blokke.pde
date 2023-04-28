@@ -117,8 +117,8 @@ class TegnKvadrat extends Blok {
     //beskrivelse af input
     textSize(20);
     textAlign(LEFT);
-    text("   x       y       h       b", xPos - blokBrede/2 + 45, yPos - 2);
-    text("rect(   x   ,   y   ,   h   ,   b   )", xPos - blokBrede/2 + 5, yPos + 20);
+    text("   x       y       b       h", xPos - blokBrede/2 + 45, yPos - 2);
+    text("rect(   x   ,   y   ,   b   ,   h   )", xPos - blokBrede/2 + 5, yPos + 20);
 
     //tegn textfelterne på blokken
     cp5.getController(str(id)+"X").setVisible(true);
