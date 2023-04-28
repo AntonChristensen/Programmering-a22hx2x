@@ -1,4 +1,4 @@
-//Controler
+//Controler og Model
 
 import controlP5.*; // importerer biblioteket controlP5. Biblioteket skal instaleres under Sketch -> import library -> manage libraries -> søg efter controlP5 og installer
 ControlP5 cp5;
@@ -14,8 +14,7 @@ View View;              //opretter en instans af klassen View så objektet View 
 ArrayList<Blok> VisuBlokke;  //deklarerer liste med de blokke som kan vælges i menuen så jeg ikke skal programmere det visuelle for blokkene to gange
 ArrayList<Blok> Blokke;      //deklarerer liste med alle de blokke som er lavet og eksisterer
 IntList Program;             //deklarerer liste over Id på de blokke som er i brugerens program
-IntList Baggrund;            //deklarerer liste over Id som er på Programmerinslisten når den køres eller steppes
-IntDict Variabler;           //deklarerer en dictionary som holder alle variabler og deres tilhørende int værdi
+IntDict Variabler;           //deklarerer en directory som holder alle variabler og deres tilhørende int værdi
 
 
 
@@ -27,7 +26,6 @@ void setup() {
   VisuBlokke = new ArrayList<Blok>();  //initialiserer listen med Blokke i menuen
   Blokke = new ArrayList<Blok>();      //initialiserer listen med alle eksisterende blokke
   Program = new IntList();             //initialiserer listen over Id i brugerens program
-  Baggrund = new IntList();
   Variabler = new IntDict();           //initialiserer et directory over variablerne i programmet
 
   cp5 = new ControlP5(this);           //initialiserer cp5

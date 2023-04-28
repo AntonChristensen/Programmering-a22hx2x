@@ -201,7 +201,7 @@ class TegnCirkel extends Blok {
     fill(farve);
     rectMode(CENTER);
     rect(xPos, yPos, blokBrede, blokHoejde);
-    
+
     //tegnet for blokken
     fill(0);
     circle(xPos - blokBrede/2 + 20, yPos - blokHoejde/2 + 20, 26);
@@ -318,9 +318,6 @@ class SkiftFarve extends Blok {
 //----------------------------- Variabel Blok-----------------------------//
 
 class Variabel extends Blok {
-  int farveR;
-  int farveG;
-  int farveB;
   String Navn;
   int Vaerdi;
 
@@ -354,10 +351,14 @@ class Variabel extends Blok {
   }
 
 
-  void koerFunktion() {   //Opretter eller ændre variablen i directory Variabler
+  void aendreVærdier() {
     Navn = cp5.get(Textfield.class, str(id)+"N").getText();
     Vaerdi = int(cp5.get(Textfield.class, str(id)+"V").getText());
+  }
 
+
+  void koerFunktion() {   //Opretter eller ændre variablen i directory Variabler
+    aendreVærdier();
     Variabler.set(Navn, Vaerdi);
   }
 
