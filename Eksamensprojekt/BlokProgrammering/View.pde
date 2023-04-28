@@ -28,7 +28,7 @@ class View {
   int clearAllY = playY;
   int clearAllBrede = blokListeBrede/2 - 5;
   int clearAllHoejde = playHoejde;
-  
+
   int clearCanvasBrede = blokListeBrede/2 - 5;
   int clearCanvasHoejde = playHoejde;
   int clearCanvasX = blokListeX + blokListeBrede - clearCanvasBrede;
@@ -42,6 +42,11 @@ class View {
   }
 
   void drawView() {
+
+    //Tegner baggrunden i programmet
+    if (!koert) {
+      background(255);
+    }
 
     //Visuel område til at vise koden
     rectMode(CORNER);
@@ -102,8 +107,8 @@ class View {
     text("Clear", clearAllX +5, clearAllY + clearAllHoejde/2 +5);
     textSize(clearAllHoejde * 0.6);
     text("all", clearAllX + clearAllBrede/2 + 18, clearAllY + clearAllHoejde-2);
-    
-    
+
+
     //clear canvas
     fill(255, 0, 0, 190);
     rect(clearCanvasX, clearCanvasY, clearCanvasBrede, clearCanvasHoejde);
@@ -122,6 +127,15 @@ class View {
     }
 
 
+    //tegner markeringen ved step
+    if (Program.size() != 0 && stepKoert){
+    fill(0, 100);
+    rectMode(CENTER);
+    Blok StepPart = Blokke.get(tegnStep);
+    rect(progX + progBrede/2, progY + StepPart.getHoejde()/2 + 15 + (StepPart.getHoejde()  + 15) * (tegnStep), StepPart.getBrede() + 15/2, StepPart.getHoejde() + 15/2);
+    }
+
+
     //tegn blokke på programmeringslisten
     for (int i = 0; i < Program.size(); i++) {
       for (int j = 0; j < Blokke.size(); j ++) {
@@ -135,14 +149,18 @@ class View {
   }
 
 
-    void opdaterBlokke() { //Står for at flytte og tegne blokke
-      for (int i = 0; i < Blokke.size(); i ++) {
-        Blok Part = Blokke.get(i);
-        Part.moveBlok(grebetId);
-        Part.drawBlok();
-      }
+
+
+  void opdaterBlokke() {    //Står for at flytte og tegne blokke og starte baggrundtegner igen
+    for (int i = 0; i < Blokke.size(); i ++) {
+      Blok Part = Blokke.get(i);
+      Part.moveBlok(grebetId);
+      Part.drawBlok();
     }
-    
+  }
+
+
+
 
   int getVisuX() {
     return visuX;

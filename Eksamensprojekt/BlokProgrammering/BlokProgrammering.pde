@@ -1,41 +1,48 @@
 //Controler
 
-import controlP5.*; // importerer biblioteket controlP5
+import controlP5.*; // importerer biblioteket controlP5. Biblioteket skal instaleres under Sketch -> import library -> manage libraries -> søg efter controlP5 og installer
 ControlP5 cp5;
 
-int grebetId = 0;   //For at få information om hvilken blok der er fat i
-int givId = 1;      //Bruges til når nye blokke skal laves
-int step = 0;       //Tæller hvilket step i programmet man er på så der kun vises det som der skal i det visuelle område
+int grebetId = 0;       //For at få information om hvilken blok der er fat i
+int givId = 1;          //Bruges til når nye blokke skal laves
+int step = 0;           //Tæller hvilket step i programmet man er på så der kun vises det som der skal i det visuelle område
+boolean koert = false;   //Er programmet blevet kørt?
+boolean stepKoert = false;  // er Step blevet kørt
+int tegnStep = step;
 
-View View;          //instanserer klassen View så objektet View oprettes
+View View;              //opretter en instans af klassen View så objektet View oprettes
 
-ArrayList<Blok> VisuBlokke;  //instanserer liste med de blokke som kan vælges i menuen så jeg ikke skal programmere det visuelle for blokkene to gange
-ArrayList<Blok> Blokke;      //instanserer liste med alle de blokke som er lavet og eksisterer
+ArrayList<Blok> VisuBlokke;  //deklarerer liste med de blokke som kan vælges i menuen så jeg ikke skal programmere det visuelle for blokkene to gange
+ArrayList<Blok> Blokke;      //deklarerer liste med alle de blokke som er lavet og eksisterer
 IntList Program;             //deklarerer liste over Id på de blokke som er i brugerens program
+IntList Baggrund;            //deklarerer liste over Id som er på Programmerinslisten når den køres eller steppes
+IntDict Variabler;           //deklarerer en dictionary som holder alle variabler og deres tilhørende int værdi
 
 
 
 void setup() {
   size(1320, 810);
+  background(255);
 
-  View = new View();                   //initierer et View som styrer alt det visuelle
-  VisuBlokke = new ArrayList<Blok>();  //initierer listen med Blokke i menuen
-  Blokke = new ArrayList<Blok>();      //initierer listen med alle eksisterende blokke
-  Program = new IntList();             //initierer listen over Id i brugerens program
+  View = new View();                   //initialiserer et View som styrer alt det visuelle
+  VisuBlokke = new ArrayList<Blok>();  //initialiserer listen med Blokke i menuen
+  Blokke = new ArrayList<Blok>();      //initialiserer listen med alle eksisterende blokke
+  Program = new IntList();             //initialiserer listen over Id i brugerens program
+  Baggrund = new IntList();
+  Variabler = new IntDict();           //initialiserer et directory over variablerne i programmet
 
-  cp5 = new ControlP5(this);           //initierer min inputkontrol
+  cp5 = new ControlP5(this);           //initialiserer cp5
 
   VisuBlokke.add(new TegnKvadrat(145, 150, givId++));    //Tilføjer blokkene til den Visuelle liste
   VisuBlokke.add(new TegnCirkel(145, 235, givId++));
-  VisuBlokke.add(new FlytForm(145, 320, givId++));
+  VisuBlokke.add(new SkiftFarve(145, 320, givId++));
+  VisuBlokke.add(new Variabel(145, 405, givId++));
 }
 
 
 
 
 void draw() {
-  //background(255);
-  //kørProgram();// ikke endelig løsning
   View.drawView();        //Tegner alt stillestående i programmet
   View.opdaterBlokke();   //Opdaterer placering og tegner bevægende blokke
 }
@@ -58,6 +65,9 @@ void koerProgram() {
       }
     }
   }
+  Variabler.clear();  //Fjerner alle variabler som er blevet lavet
+
+  koert = true;       //Gør så det visuelle område ikke overskrives
 }
 
 
@@ -76,8 +86,12 @@ void stepProgram(int steppet) {
       }
     }
   }
-}
+  
+  
+  Variabler.clear();  //Fjerner alle variabler som er blevet lavet
 
+  koert = true;       //Gør så det visuelle område ikke overskrives
+}
 
 
 
@@ -101,7 +115,9 @@ void mousePressed() {
       } else if (i == 1) {
         Blokke.add(new TegnCirkel(mouseX, mouseY, givId));
       } else if (i == 2) {
-        Blokke.add(new FlytForm(mouseX, mouseY, givId));
+        Blokke.add(new SkiftFarve(mouseX, mouseY, givId));
+      } else if (i == 3) {
+        Blokke.add(new Variabel(mouseX, mouseY, givId));
       }
       grebetId = givId;   //Gør så man kan flytte på en blok lige efter man har levet den
       givId++;            //tæller givId op så den næste instans af en blok ikke har samme id som en eksisterende
@@ -114,7 +130,7 @@ void mousePressed() {
 
 void mouseReleased() {
   // Sætter blokke på Programmeringslisten hvis musen er over det område
-  if (mouseX > View.getProgX() && mouseX < View.getProgX() + View.getProgBrede() && mouseY > View.getProgY() && mouseY < View.getProgY() + View.getProgHoejde()) {
+  if (mouseX > View.getProgX() && mouseX < View.getProgX() + View.getProgBrede() && mouseY > View.getProgY() && mouseY < View.getProgY() + View.getProgHoejde() && Program.size() < 8) {
     if (!Program.hasValue(grebetId) && grebetId != 0) {  //Sæt Id på listen hvis det ikke allerede er der
       Program.append(grebetId);
     }
@@ -124,6 +140,8 @@ void mouseReleased() {
   //fjerner en blok fra programmet når den flyttes ud af programmeringslisten
   if (!(mouseX > View.getProgX() && mouseX < View.getProgX() + View.getProgBrede() && mouseY > View.getProgY() && mouseY < View.getProgY() + View.getProgHoejde()) && Program.hasValue(grebetId)) {
     Program.remove(Program.index(grebetId));
+    stepKoert = false;  //hvis en blok fjernes nulstilles stepKoert så der ikke tegnes markering
+    step = 0;           //hvis en blok fjernes nulstilles step
   }
 
 
@@ -137,8 +155,8 @@ void mouseReleased() {
       }
     }
   }
-
-
+  
+  
   grebetId = 0; //for at man ikke samler en blok op når der ikke trykkes på nogen
 }
 
@@ -149,16 +167,20 @@ void mouseClicked() {
   if (mouseX > View.getPlayX() && mouseX < View.getPlayX() + View.getPlayBrede() && mouseY > View.getPlayY() && mouseY < View.getPlayY() + View.getPlayHoejde()) {
     koerProgram();
     step = 0;
+    stepKoert = false;
   }
 
 
   // Step knap kører programmet et step af gangen
   if (mouseX > View.getStepX() && mouseX < View.getStepX() + View.getStepBrede() && mouseY > View.getStepY() && mouseY < View.getStepY() + View.getStepHoejde()) {
+    stepKoert = true;
     stepProgram(step);
     if (step < Program.size()-1) {          //-1 fordi index 1 er outOfBounds på længden 1 i stepProgrram()
+      tegnStep = step;
       step++;
     } else if (step == Program.size()-1) {  //Starter step-sekvenesn forfra hvis slutningen af brugerens program er nået
-      step = 0;
+      tegnStep = step;  //Tager en version af step før den nulstilles
+      step = 0;         
     }
   }
 
@@ -177,7 +199,8 @@ void mouseClicked() {
     rectMode(CORNER);
     rect(View.getVisuX(), View.getVisuY(), View.getVisuBrede(), View.getVisuHoejde());
 
-    step = 0;  //nulstiller stepknappen
+    step = 0;            //nulstiller stepknappen
+    stepKoert = false;
   }
 
 
@@ -186,7 +209,7 @@ void mouseClicked() {
     fill(255);
     rectMode(CORNER);
     rect(View.getVisuX(), View.getVisuY(), View.getVisuBrede(), View.getVisuHoejde());
-    
+
     step = 0;  //nulstiller stepknappen
   }
 }
