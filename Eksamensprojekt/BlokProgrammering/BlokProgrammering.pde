@@ -7,8 +7,7 @@ int grebetId = 0;       //For at få information om hvilken blok der er fat i
 int givId = 1;          //Bruges til når nye blokke skal laves
 int step = 0;           //Tæller hvilket step i programmet man er på så der kun vises det som der skal i det visuelle område
 boolean koert = false;   //Er programmet blevet kørt?
-boolean stepKoert = false;  // er Step blevet kørt
-int tegnStep = step;
+
 
 View View;              //opretter en instans af klassen View så objektet View oprettes
 
@@ -140,7 +139,7 @@ void mouseReleased() {
   //fjerner en blok fra programmet når den flyttes ud af programmeringslisten
   if (!(mouseX > View.getProgX() && mouseX < View.getProgX() + View.getProgBrede() && mouseY > View.getProgY() && mouseY < View.getProgY() + View.getProgHoejde()) && Program.hasValue(grebetId)) {
     Program.remove(Program.index(grebetId));
-    stepKoert = false;  //hvis en blok fjernes nulstilles stepKoert så der ikke tegnes markering
+    View.setStepKoert(false);  //hvis en blok fjernes nulstilles stepKoert så der ikke tegnes markering
     step = 0;           //hvis en blok fjernes nulstilles step
   }
 
@@ -150,8 +149,8 @@ void mouseReleased() {
     for (int i = 0; i < Blokke.size(); i ++) {
       Blok Part = Blokke.get(i);
       if (Part.getId() == grebetId) {
-        Part.sletTextfelt(Part.getId());
-        Blokke.remove(Blokke.indexOf(Part));
+        Part.sletTextfelt(Part.getId());     //Sletter blokkens tekstfelter
+        Blokke.remove(Blokke.indexOf(Part)); //Sletter blokken fra eksistens
       }
     }
   }
@@ -167,19 +166,19 @@ void mouseClicked() {
   if (mouseX > View.getPlayX() && mouseX < View.getPlayX() + View.getPlayBrede() && mouseY > View.getPlayY() && mouseY < View.getPlayY() + View.getPlayHoejde()) {
     koerProgram();
     step = 0;
-    stepKoert = false;
+    View.setStepKoert(false);
   }
 
 
   // Step knap kører programmet et step af gangen
   if (mouseX > View.getStepX() && mouseX < View.getStepX() + View.getStepBrede() && mouseY > View.getStepY() && mouseY < View.getStepY() + View.getStepHoejde()) {
-    stepKoert = true;
+    View.setStepKoert(true);
     stepProgram(step);
     if (step < Program.size()-1) {          //-1 fordi index 1 er outOfBounds på længden 1 i stepProgrram()
-      tegnStep = step;
+      View.setTegnStep(step);
       step++;
     } else if (step == Program.size()-1) {  //Starter step-sekvenesn forfra hvis slutningen af brugerens program er nået
-      tegnStep = step;  //Tager en version af step før den nulstilles
+      View.setTegnStep(step);  //Tager en version af step før den nulstilles
       step = 0;         
     }
   }
@@ -200,7 +199,7 @@ void mouseClicked() {
     rect(View.getVisuX(), View.getVisuY(), View.getVisuBrede(), View.getVisuHoejde());
 
     step = 0;            //nulstiller stepknappen
-    stepKoert = false;
+    View.setStepKoert(false);
   }
 
 
@@ -210,6 +209,7 @@ void mouseClicked() {
     rectMode(CORNER);
     rect(View.getVisuX(), View.getVisuY(), View.getVisuBrede(), View.getVisuHoejde());
 
-    step = 0;  //nulstiller stepknappen
+    step = 0;            //nulstiller stepknappen
+    View.setStepKoert(false);
   }
 }

@@ -33,8 +33,9 @@ class View {
   int clearCanvasHoejde = playHoejde;
   int clearCanvasX = blokListeX + blokListeBrede - clearCanvasBrede;
   int clearCanvasY = playY;
-
-  int yPlaceringProgram = progY + 15;  //bruges til at have en rækkefølge i programmeringsruden
+  
+  boolean stepKoert = false;  // er Step blevet kørt?
+  int tegnStep = step;        //kopi af step for at tegne markering
 
 
   //Cunstuctor
@@ -132,7 +133,7 @@ class View {
     fill(0, 100);
     rectMode(CENTER);
     Blok StepPart = Blokke.get(tegnStep);
-    rect(progX + progBrede/2, progY + StepPart.getHoejde()/2 + 15 + (StepPart.getHoejde()  + 15) * (tegnStep), StepPart.getBrede() + 15/2, StepPart.getHoejde() + 15/2);
+    rect(progX + progBrede/2, progY + StepPart.getHoejde()/2 + 15 + (StepPart.getHoejde()  + 15) * tegnStep, StepPart.getBrede() + 15/2, StepPart.getHoejde() + 15/2);
     }
 
 
@@ -141,8 +142,8 @@ class View {
       for (int j = 0; j < Blokke.size(); j ++) {
         Blok Part = Blokke.get(j);
         if (Part.getId() == Program.get(i)) {
-          Part.setXPos(View.getProgX() + View.getProgBrede()/2);
-          Part.setYPos(View.getProgY() + Part.getHoejde()/2 + 15 + (Part.getHoejde()  + 15) * i);
+          Part.setXPos(progX + progBrede/2);
+          Part.setYPos(progY + Part.getHoejde()/2 + 15 + (Part.getHoejde()  + 15) * i);
         }
       }
     }
@@ -151,7 +152,7 @@ class View {
 
 
 
-  void opdaterBlokke() {    //Står for at flytte og tegne blokke og starte baggrundtegner igen
+  void opdaterBlokke() {    //Står for at flytte og tegne blokke og starte baggrundstegner igen
     for (int i = 0; i < Blokke.size(); i ++) {
       Blok Part = Blokke.get(i);
       Part.moveBlok(grebetId);
@@ -161,6 +162,8 @@ class View {
 
 
 
+
+  //------ Her starter getter og setters ------//
 
   int getVisuX() {
     return visuX;
@@ -285,4 +288,15 @@ class View {
   int getBlokListeHoejde() {
     return blokListeHoejde;
   }
+  
+  //-------------------------------------------//
+  
+  void setTegnStep(int nyTegnStep) {
+    tegnStep = nyTegnStep;
+  }
+  
+  void setStepKoert(boolean nyStepKoert) {
+    stepKoert = nyStepKoert;
+  }
+  
 }
