@@ -33,7 +33,7 @@ class View {
   int clearCanvasHoejde = playHoejde;
   int clearCanvasX = blokListeX + blokListeBrede - clearCanvasBrede;
   int clearCanvasY = playY;
-  
+
   boolean stepKoert = false;  // er Step blevet kørt?
   int tegnStep = step;        //kopi af step for at tegne markering
 
@@ -42,9 +42,20 @@ class View {
   View() {
   }
 
+
+
+  void nulstilKanvas() {
+    fill(255);
+    rectMode(CORNER);
+    rect(visuX, visuY, visuBrede, visuHoejde);   //nulstiller det visuelle område
+  }
+
+
+
+
   void drawView() {
 
-    //Tegner baggrunden i programmet
+    //Tegner baggrunden i programmet når programmet ikke er kørt
     if (!koert) {
       background(255);
     }
@@ -129,11 +140,11 @@ class View {
 
 
     //tegner markeringen ved step
-    if (Program.size() != 0 && stepKoert){
-    fill(0, 100);
-    rectMode(CENTER);
-    Blok StepPart = Blokke.get(tegnStep);
-    rect(progX + progBrede/2, progY + StepPart.getHoejde()/2 + 15 + (StepPart.getHoejde()  + 15) * tegnStep, StepPart.getBrede() + 15/2, StepPart.getHoejde() + 15/2);
+    if (Program.size() != 0 && stepKoert) {
+      fill(0, 100);
+      rectMode(CENTER);
+      Blok StepPart = Blokke.get(tegnStep);
+      rect(progX + progBrede/2, progY + StepPart.getHoejde()/2 + 15 + (StepPart.getHoejde()  + 15) * tegnStep, StepPart.getBrede() + 15/2, StepPart.getHoejde() + 15/2);
     }
 
 
@@ -288,15 +299,14 @@ class View {
   int getBlokListeHoejde() {
     return blokListeHoejde;
   }
-  
+
   //-------------------------------------------//
-  
+
   void setTegnStep(int nyTegnStep) {
     tegnStep = nyTegnStep;
   }
-  
+
   void setStepKoert(boolean nyStepKoert) {
     stepKoert = nyStepKoert;
   }
-  
 }

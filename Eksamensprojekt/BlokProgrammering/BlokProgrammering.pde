@@ -49,9 +49,7 @@ void draw() {
 
 //Kører igennem alle blokke i brugerens program og kører deres funktion
 void koerProgram() {
-  fill(255);
-  rectMode(CORNER);
-  rect(View.getVisuX(), View.getVisuY(), View.getVisuBrede(), View.getVisuHoejde());   //nulstiller det visuelle område
+  View.nulstilKanvas();
   for  (int i = 0; i < Program.size(); i++) {
     //println("Id fra program index:"+i+" Id:"+Program.get(i));
     for (int j = 0; j < Blokke.size(); j ++) {
@@ -72,9 +70,7 @@ void koerProgram() {
 
 //Stepper igennem alle blokke i brugerens program og kører deres funktion
 void stepProgram(int steppet) {
-  fill(255);
-  rectMode(CORNER);
-  rect(View.getVisuX(), View.getVisuY(), View.getVisuBrede(), View.getVisuHoejde());   //nulstiller det visuelle område
+  View.nulstilKanvas();
   for  (int i = 0; i <= steppet; i++) {
     for (int j = 0; j < Blokke.size(); j ++) {
       Blok Part = Blokke.get(j);
@@ -192,9 +188,7 @@ void mouseClicked() {
     }
     Blokke.clear(); // sletter alle blokkene så de ikke tegnes igen
 
-    fill(255);
-    rectMode(CORNER);
-    rect(View.getVisuX(), View.getVisuY(), View.getVisuBrede(), View.getVisuHoejde());
+    View.nulstilKanvas();
 
     step = 0;            //nulstiller stepknappen
     View.setStepKoert(false);
@@ -203,9 +197,7 @@ void mouseClicked() {
 
   //Clear Canvas knap
   if (mouseX > View.getClearCanvasX() && mouseX < View.getClearCanvasX() + View.getClearCanvasBrede() && mouseY > View.getClearCanvasY() && mouseY < View.getClearCanvasY() + View.getClearCanvasHoejde()) {
-    fill(255);
-    rectMode(CORNER);
-    rect(View.getVisuX(), View.getVisuY(), View.getVisuBrede(), View.getVisuHoejde());
+    View.nulstilKanvas();
 
     step = 0;            //nulstiller stepknappen
     View.setStepKoert(false);
