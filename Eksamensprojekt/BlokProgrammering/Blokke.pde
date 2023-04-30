@@ -340,14 +340,14 @@ class Variabel extends Blok {
     fill(0);
     textSize(20);
     textAlign(CENTER);
-    text("Navn     Værdi", xPos+10, yPos - 5);
-    text("int   N      =      V", xPos - 15, yPos + 20);
+    text("Navn     Værdi", xPos, yPos - 5);
+    text("N     =       V", xPos, yPos + 20);
 
     //tegn textfelterne på blokken
     cp5.getController(str(id)+"N").setVisible(true);
-    cp5.getController(str(id)+"N").setPosition(xPos - blokBrede/2 + 60, yPos + 3);
+    cp5.getController(str(id)+"N").setPosition(xPos - blokBrede/2 + 50, yPos + 3);
     cp5.getController(str(id)+"V").setVisible(true);
-    cp5.getController(str(id)+"V").setPosition(xPos - blokBrede/2 + 125, yPos + 3);
+    cp5.getController(str(id)+"V").setPosition(xPos - blokBrede/2 + 115, yPos + 3);
   }
 
 
