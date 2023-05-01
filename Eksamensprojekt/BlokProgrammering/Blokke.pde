@@ -301,10 +301,32 @@ class SkiftFarve extends Blok {
   }
 
 
+  void aendreVærdier() {  //tager værdier fra brugeren/variabler og gemme dem så de kan bruges
+    if (Variabler.hasKey(cp5.get(Textfield.class, str(id)+"R").getText())) {
+      farveR = Variabler.get(cp5.get(Textfield.class, str(id)+"R").getText());
+    } else {
+      farveR = int(cp5.get(Textfield.class, str(id)+"R").getText());
+    }
+
+    if (Variabler.hasKey(cp5.get(Textfield.class, str(id)+"G").getText())) {
+      farveG = Variabler.get(cp5.get(Textfield.class, str(id)+"G").getText());
+    } else {
+      farveG = int(cp5.get(Textfield.class, str(id)+"G").getText());
+    }
+
+    if (Variabler.hasKey(cp5.get(Textfield.class, str(id)+"B").getText())) {
+      farveB = Variabler.get(cp5.get(Textfield.class, str(id)+"B").getText());
+    } else {
+      farveB = int(cp5.get(Textfield.class, str(id)+"B").getText());
+    }
+  }
+
+
   void koerFunktion() {  //Opretter eller ændre de variabler som holder farveværdier
-    Variabler.set("farveR", int(cp5.get(Textfield.class, str(id)+"R").getText()));
-    Variabler.set("farveG", int(cp5.get(Textfield.class, str(id)+"G").getText()));
-    Variabler.set("farveB", int(cp5.get(Textfield.class, str(id)+"B").getText()));
+    aendreVærdier();
+    Variabler.set("farveR", farveR);
+    Variabler.set("farveG", farveG);
+    Variabler.set("farveB", farveB);
   }
 
 
@@ -353,7 +375,12 @@ class Variabel extends Blok {
 
   void aendreVærdier() {
     Navn = cp5.get(Textfield.class, str(id)+"N").getText();
-    Vaerdi = int(cp5.get(Textfield.class, str(id)+"V").getText());
+    
+    if (Variabler.hasKey(cp5.get(Textfield.class, str(id)+"V").getText())) {
+      Vaerdi = Variabler.get(cp5.get(Textfield.class, str(id)+"V").getText());
+    } else {
+      Vaerdi = int(cp5.get(Textfield.class, str(id)+"V").getText());
+    }
   }
 
 
